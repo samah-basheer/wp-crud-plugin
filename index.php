@@ -20,3 +20,4 @@ add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'codechief_settin
 
 include dirname( __FILE__) . '/admin/menu.php';
 include dirname( __FILE__) . '/admin/pages/crud_page.php';
+include dirname( __FILE__) . '/functions/crud-db.php';
