@@ -3,6 +3,7 @@ function crude_db_after_setup_theme() {
     // change the version to update db structure
     $crud_db_version = "1.0";
     if ($crud_db_version != get_option("crud_db_version")) {
+        // crud_db_version don't name it db_version
         global $wpdb;
 
         $crud_table = $wpdb->prefix . 'crud';
