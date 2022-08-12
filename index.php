@@ -18,7 +18,12 @@ function codechief_settings_page($links) {
 }
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'codechief_settings_page');
 
+if ( ! class_exists( 'WP_List_Table' ) ) {
+    require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
+}
+
 include dirname( __FILE__) . '/admin/menu.php';
-include dirname( __FILE__) . '/admin/pages/crud_page.php';
-include dirname( __FILE__) . '/admin/pages/add_new.php';
+include dirname( __FILE__) . '/admin/pages/crud-page.php';
+include dirname( __FILE__) . '/admin/pages/add-new.php';
 include dirname( __FILE__) . '/functions/crud-db.php';
+include dirname( __FILE__) . '/admin/class/crud-class-list.php';
