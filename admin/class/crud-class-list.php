@@ -32,30 +32,21 @@ class Crud_List_Table extends WP_List_Table {
         global $wpdb;
         $per_page = 20;
 
-//        if (isset($_GET['page']) && isset($_GET['s']) && $_GET['page'] == 'subscribers') {
-//            $table_subscribers = $wpdb->prefix . 'news_alert_subscribers';
-//            $results = $wpdb->get_results("SELECT * FROM $table_subscribers WHERE email Like '%{$_GET['s']}%' OR name Like '%{$_GET['s']}%' OR frequency Like '%{$_GET['s']}%' OR language Like '%{$_GET['s']}%' ORDER BY date DESC");
-//            $data = array();
-//            foreach ( $results as $item ) {
-//                $row['email'] = $item->email;
-//                $row['name'] = $item->name;
-//                $row['frequency'] = $item->frequency;
-//                $row['language'] = $item->language;
-//                $row['action'] = '<input type="button" class="button-secondary" style="border-color: #dc3545; color: #dc3545;" onclick="removeSubscriber(' . $item->id .')" value="Remove">';
-//                $data[] = $row;
-//            }
-//        } else {
-            $table_crud = $wpdb->prefix . 'crud';
+        $table_crud = $wpdb->prefix . 'crud';
+
+        if (isset($_GET['page']) && isset($_GET['s']) && $_GET['page'] == 'crud') {
+            $results = $wpdb->get_results("SELECT * FROM $table_crud WHERE email Like '%{$_GET['s']}%' OR name Like '%{$_GET['s']}%' OR date Like '%{$_GET['s']}%'");
+        } else {
             $results = $wpdb->get_results("SELECT * FROM $table_crud");
-            $data = array();
-            foreach ( $results as $item ) {
-                $row['name'] = $item->name;
-                $row['email'] = $item->email;
-                $row['date'] = $item->date;
-//                $row['action'] = '<input type="button" class="button-secondary" style="border-color: #dc3545; color: #dc3545;" onclick="removeSubscriber(' . $item->id .')" value="Remove">';
-                $data[] = $row;
-            }
-//        }
+        }
+        $data = array();
+        foreach ( $results as $item ) {
+            $row['email'] = $item->email;
+            $row['name'] = $item->name;
+            $row['date'] = $item->date;
+//            $row['action'] = '<input type="button" class="button-secondary" style="border-color: #dc3545; color: #dc3545;" onclick="removeSubscriber(' . $item->id .')" value="Remove">';
+            $data[] = $row;
+        }
         $current_page = $this->get_pagenum();
         $total_items = count( $data );
         $data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
