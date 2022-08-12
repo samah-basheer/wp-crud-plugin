@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function codechief_settings_page($links) {
-    $links[] = '<a href="/wp-admin/admin.php?page=crud">' . __( 'Settings', 'domain' ) . '</a>';
+    $links[] = '<a href="'.admin_url('/admin.php?page=crud').'">' . __( 'Settings', 'domain' ) . '</a>';
     return $links;
 }
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'codechief_settings_page');
