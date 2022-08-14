@@ -2,7 +2,7 @@
 
 function crud_admin_menu() {
 
-    add_menu_page('CRUD Action','CRUD Action', 'activate_plugins', 'crud', 'crud_page', 'dashicons-format-gallery', 63 );
+    add_menu_page('CRUD Action','CRUD Action', 'activate_plugins', 'crud', 'crud_page', 'dashicons-admin-generic', 63 );
 
     add_submenu_page(
         'crud',
