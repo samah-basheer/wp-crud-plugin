@@ -22,12 +22,18 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
     require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-//if(isset($_GET['page']) && $_GET['page'] == 'crud' && $_GET['action'] == 'delete') {
-//
-//}
+/**
+ * enqueue Admin js file
+ */
+function crud_admin_enqueue_scripts() {
+//    wp_enqueue_style( 'subscribe-css', plugin_dir_url( __FILE__ ) . 'assets/css/main.css', array(), time() );
+    wp_enqueue_script( 'subscriber-js', plugin_dir_url( __FILE__ ) . 'assets/js/admin.js', array(), '1.0.0' );
+}
+add_action( 'admin_enqueue_scripts', 'crud_admin_enqueue_scripts' );
 
 include dirname( __FILE__) . '/admin/menu.php';
 include dirname( __FILE__) . '/admin/pages/crud-page.php';
 include dirname( __FILE__) . '/admin/pages/add-new.php';
 include dirname( __FILE__) . '/functions/crud-db.php';
 include dirname( __FILE__) . '/admin/class/crud-class-list.php';
+include dirname( __FILE__) . '/functions/crud-actions.php';

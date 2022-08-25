@@ -93,7 +93,7 @@ class Crud_List_Table extends WP_List_Table {
     function column_name($item) {
         $actions = array(
             'edit'      => sprintf('<a href="?page=%s&action=%s&id=%s">Edit</a>',$_REQUEST['page'],'edit',$item['id']),
-            'delete'    => sprintf('<a href="?page=%s&action=%s&id=%s">Delete</a>',$_REQUEST['page'],'delete',$item['id']),
+            'delete'    => sprintf('<a href="#" onclick="delete_subscriber(%s)">Delete</a>',$item['id']),
         );
 
         return sprintf('%1$s %2$s', $item['name'], $this->row_actions($actions) );
