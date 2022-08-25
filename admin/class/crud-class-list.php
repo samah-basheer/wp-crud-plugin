@@ -45,7 +45,6 @@ class Crud_List_Table extends WP_List_Table {
             $row['name'] = $item->name;
             $row['date'] = $item->date;
             $row['id'] = $item->id;
-//            $row['action'] = '<input type="button" class="button-secondary" style="border-color: #dc3545; color: #dc3545;" onclick="removeSubscriber(' . $item->id .')" value="Remove">';
             $data[] = $row;
         }
         $current_page = $this->get_pagenum();
