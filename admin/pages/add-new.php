@@ -3,7 +3,7 @@ function add_page() {
     ?>
     <div class="wrap">
         <h1 class="wp-heading-inline"><?php echo esc_html( get_admin_page_title() ); ?></h1>
-        <form method="" name="" id="">
+        <form method="POST" action="<?php echo esc_html( admin_url( 'admin-post.php' ) ); ?>">
             <table class="form-table" role="presentation">
                 <tbody>
                     <tr class="form-field form-required">
@@ -14,7 +14,7 @@ function add_page() {
                             </label>
                         </th>
                         <td>
-                            <input name="" type="text" id="" value="" aria-required="true" autocapitalize="none" autocorrect="off" autocomplete="off" maxlength="60">
+                            <input name="name" type="text" id="" value="" aria-required="true" autocapitalize="none" autocorrect="off" autocomplete="off" maxlength="60">
                         </td>
                     </tr>
                     <tr class="form-field form-required">
@@ -25,7 +25,7 @@ function add_page() {
                             </label>
                         </th>
                         <td>
-                            <input name="" type="text" id="" value="" aria-required="true" autocapitalize="none" autocorrect="off" autocomplete="off" maxlength="60">
+                            <input name="email" type="text" id="" value="" aria-required="true" autocapitalize="none" autocorrect="off" autocomplete="off" maxlength="60">
                         </td>
                     </tr>
                     <tr class="form-field form-required">
@@ -36,17 +36,55 @@ function add_page() {
                             </label>
                         </th>
                         <td>
-                            <input name="" type="date" id="" value="" aria-required="true">
+                            <input name="date" type="date" id="" value="" aria-required="true">
                         </td>
                     </tr>
                 </tbody>
             </table>
-
-
-            <p class="submit">
-                <input type="submit" name="" id="" class="button button-primary" value="Add New Subscriber">
-            </p>
+            <input type="hidden" name="redirect_crud_post" value="<?php echo esc_html( admin_url( 'admin.php?page=subscriber_new' ) ); ?>">
+            <input type="hidden" name="form-name" value="add_subscriber">
+            <?php
+            submit_button('Add Subscriber');
+            ?>
         </form>
     </div>
     <?php
+}
+
+function subscriber_save_entry(){
+    if( $_POST["form-name"] == 'add_subscriber' ) {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $date = $_POST['date'];
+        if ( ! empty( $_POST['name'] ) && ! empty( $_POST['email']) && ! empty( $_POST['date'] ) ) {
+
+            global $wpdb;
+            $table_crud = $wpdb->prefix . 'crud';
+
+            $insert_data = $wpdb->insert(
+                $table_crud,
+                array('name'     => $name,
+                    'email' => $email,
+                    'date'   => $date.date(' H:i:s')
+                )
+            );
+
+            if ( ! $insert_data ) {
+                die( 'Not able to add new subscriber' );
+            }
+        }
+        crud_admin_post_redirect();
+    }
+}
+add_action( 'admin_post', 'subscriber_save_entry' );
+
+function crud_admin_post_redirect() {
+
+    if ( ! isset( $_POST['redirect_crud_post'] ) ) {
+        $_POST['redirect_crud_post'] = wp_login_url();
+    }
+
+    $url = sanitize_text_field( wp_unslash( $_POST['redirect_crud_post'] ) );
+    wp_safe_redirect( urldecode( $url ) );
+    exit;
 }
