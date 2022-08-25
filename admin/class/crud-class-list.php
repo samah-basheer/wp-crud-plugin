@@ -44,6 +44,7 @@ class Crud_List_Table extends WP_List_Table {
             $row['email'] = $item->email;
             $row['name'] = $item->name;
             $row['date'] = $item->date;
+            $row['id'] = $item->id;
 //            $row['action'] = '<input type="button" class="button-secondary" style="border-color: #dc3545; color: #dc3545;" onclick="removeSubscriber(' . $item->id .')" value="Remove">';
             $data[] = $row;
         }
@@ -87,5 +88,13 @@ class Crud_List_Table extends WP_List_Table {
             default:
                 return $item[$column_name];
         }
+    }
+    function column_name($item) {
+        $actions = array(
+            'edit'      => sprintf('<a href="?page=%s&action=%s&id=%s">Edit</a>',$_REQUEST['page'],'edit',$item['id']),
+            'delete'    => sprintf('<a href="?page=%s&action=%s&id=%s">Delete</a>',$_REQUEST['page'],'delete',$item['id']),
+        );
+
+        return sprintf('%1$s %2$s', $item['name'], $this->row_actions($actions) );
     }
 }
