@@ -35,16 +35,18 @@ class Crud_List_Table extends WP_List_Table {
         $table_crud = $wpdb->prefix . 'crud';
 
         if (isset($_GET['page']) && isset($_GET['s']) && $_GET['page'] == 'crud') {
-            $results = $wpdb->get_results("SELECT * FROM $table_crud WHERE email Like '%{$_GET['s']}%' OR name Like '%{$_GET['s']}%' OR date Like '%{$_GET['s']}%'");
+            $search = "%" . $_GET['s'] . "%";
+            $sql = $wpdb->prepare("SELECT * FROM $table_crud WHERE email Like %s OR name Like %s OR date Like %s", $search, $search, $search);
+            $results = $wpdb->get_results($sql);
         } else {
             $results = $wpdb->get_results("SELECT * FROM $table_crud");
         }
         $data = array();
         foreach ( $results as $item ) {
+            $row['id'] = $item->id;
             $row['email'] = $item->email;
             $row['name'] = $item->name;
             $row['date'] = $item->date;
-            $row['id'] = $item->id;
             $data[] = $row;
         }
         $current_page = $this->get_pagenum();

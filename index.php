@@ -22,6 +22,10 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
     require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
+//if(isset($_GET['page']) && $_GET['page'] == 'crud' && $_GET['action'] == 'delete') {
+//
+//}
+
 include dirname( __FILE__) . '/admin/menu.php';
 include dirname( __FILE__) . '/admin/pages/crud-page.php';
 include dirname( __FILE__) . '/admin/pages/add-new.php';
