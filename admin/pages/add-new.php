@@ -56,7 +56,7 @@ function subscriber_save_entry(){
         $name = $_POST['name'];
         $email = $_POST['email'];
         $date = $_POST['date'];
-        if ( ! empty( $_POST['name'] ) && ! empty( $_POST['email']) && ! empty( $_POST['date'] ) ) {
+        if ( ! empty( $name ) && ! empty( $email ) && ! empty( $date ) ) {
 
             global $wpdb;
             $table_crud = $wpdb->prefix . 'crud';
