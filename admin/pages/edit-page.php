@@ -56,8 +56,9 @@ function edit_page() {
                 </tr>
                 </tbody>
             </table>
-            <input type="hidden" name="redirect_crud_post" value="<?php echo esc_html( admin_url( 'admin.php?page=crud' ) ); ?>">
-            <input type="hidden" name="form-name" value="edit-subscriber">
+            <input type="hidden" name="redirect_crud_post" value="<?php echo esc_html( admin_url( 'admin.php?page=edit-subscriber&action=edit&subscriber='.$id ) ); ?>">
+            <input type="hidden" name="form-name" value="edit_subscriber">
+            <input type="hidden" name="subscriber-id" value="<?php echo $id;?>">
             <?php
             submit_button();
             ?>
@@ -66,3 +67,26 @@ function edit_page() {
     <?php
     }
 }
+
+function subscriber_update_entry(){
+    if( $_POST["form-name"] == 'edit_subscriber' ) {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $date = $_POST['date'];
+        $id = $_POST['subscriber-id'];
+        if ( ! empty( $name ) && ! empty( $email ) && ! empty( $date ) ) {
+
+            global $wpdb;
+            $table_crud = $wpdb->prefix . 'crud';
+
+            $sql = $wpdb->prepare("UPDATE $table_crud SET name=%s, email=%s, date=%s WHERE id=$id", $name, $email, $date);
+            $insert_data = $wpdb->query($sql);
+
+            if ( ! $insert_data ) {
+                die( 'Not able to edit subscriber' );
+            }
+        }
+        crud_admin_post_redirect();
+    }
+}
+add_action( 'admin_post', 'subscriber_update_entry' );
