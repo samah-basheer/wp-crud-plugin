@@ -41,7 +41,7 @@ function add_page() {
                     </tr>
                 </tbody>
             </table>
-            <input type="hidden" name="redirect_crud_post" value="<?php echo esc_html( admin_url( 'admin.php?page=subscriber_new' ) ); ?>">
+            <input type="hidden" name="redirect_crud_post" value="<?php echo esc_html( admin_url( 'admin.php?page=crud' ) ); ?>">
             <input type="hidden" name="form-name" value="add_subscriber">
             <?php
             submit_button('Add Subscriber');
@@ -77,14 +77,3 @@ function subscriber_save_entry(){
     }
 }
 add_action( 'admin_post', 'subscriber_save_entry' );
-
-function crud_admin_post_redirect() {
-
-    if ( ! isset( $_POST['redirect_crud_post'] ) ) {
-        $_POST['redirect_crud_post'] = wp_login_url();
-    }
-
-    $url = sanitize_text_field( wp_unslash( $_POST['redirect_crud_post'] ) );
-    wp_safe_redirect( urldecode( $url ) );
-    exit;
-}
