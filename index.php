@@ -37,3 +37,4 @@ include dirname( __FILE__) . '/admin/pages/add-new.php';
 include dirname( __FILE__) . '/functions/crud-db.php';
 include dirname( __FILE__) . '/admin/class/crud-class-list.php';
 include dirname( __FILE__) . '/functions/crud-actions.php';
+include dirname( __FILE__) . '/admin/pages/edit-page.php';

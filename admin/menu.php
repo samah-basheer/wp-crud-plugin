@@ -20,6 +20,14 @@ function crud_admin_menu() {
         'subscriber_new',
         'add_page'
     );
+    add_submenu_page(
+        'null',
+        'Edit Subscriber',
+        'null',
+        'edit_pages',
+        'edit-subscriber',
+        'edit_page'
+    );
     // add_options_page puts a menu/link in the “Settings” menu
     // add_menu_page puts a menu/link at the same level as “Dashboard”, “Posts”, “Media”, etc.
     // add_submenu_page puts a menu/link as a child underneath “Dashboard”, “Posts”, “Media”, etc.
