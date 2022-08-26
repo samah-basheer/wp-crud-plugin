@@ -2,6 +2,19 @@
 
 function edit_page() {
     if(isset($_GET['subscriber'])) {
+        global $wpdb;
+        $table_crud = $wpdb->prefix . 'crud';
+
+        $id = $_GET['subscriber'];
+        $sql = $wpdb->prepare("SELECT * FROM $table_crud WHERE id = %s", $id);
+        $result = $wpdb->get_row($sql);
+
+        $name = $result->name;
+        $email = $result->email;
+        $date = $result->date;
+
+        $d = explode(" ", $date);
+        $dt = $d[0];
     ?>
     <div class="wrap">
         <h1 class="wp-heading-inline"><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -16,7 +29,7 @@ function edit_page() {
                         </label>
                     </th>
                     <td>
-                        <input name="name" type="text" id="" value="" aria-required="true" autocapitalize="none" autocorrect="off" autocomplete="off" maxlength="60">
+                        <input name="name" type="text" id="" value="<?php echo $name;?>" aria-required="true" autocapitalize="none" autocorrect="off" autocomplete="off" maxlength="60">
                     </td>
                 </tr>
                 <tr class="form-field form-required">
@@ -27,7 +40,7 @@ function edit_page() {
                         </label>
                     </th>
                     <td>
-                        <input name="email" type="text" id="" value="" aria-required="true" autocapitalize="none" autocorrect="off" autocomplete="off" maxlength="60">
+                        <input name="email" type="text" id="" value="<?php echo $email;?>" aria-required="true" autocapitalize="none" autocorrect="off" autocomplete="off" maxlength="60">
                     </td>
                 </tr>
                 <tr class="form-field form-required">
@@ -38,7 +51,7 @@ function edit_page() {
                         </label>
                     </th>
                     <td>
-                        <input name="date" type="date" id="" value="" aria-required="true">
+                        <input name="date" type="date" id="" value="<?php echo $dt;?>" aria-required="true">
                     </td>
                 </tr>
                 </tbody>
@@ -46,7 +59,7 @@ function edit_page() {
             <input type="hidden" name="redirect_crud_post" value="<?php echo esc_html( admin_url( 'admin.php?page=crud' ) ); ?>">
             <input type="hidden" name="form-name" value="edit-subscriber">
             <?php
-            submit_button('Add Subscriber');
+            submit_button();
             ?>
         </form>
     </div>
