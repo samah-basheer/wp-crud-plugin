@@ -83,7 +83,7 @@ function subscriber_update_entry(){
             $insert_data = $wpdb->query($sql);
 
             if ( ! $insert_data ) {
-                die( 'Not able to edit subscriber' );
+                echo 'No local changes.';
             }
         }
         crud_admin_post_redirect();
